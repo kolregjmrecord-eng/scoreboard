@@ -141,6 +141,14 @@
     transform: scale(1.2);
     box-shadow: 0 6px 15px rgba(0,0,0,0.5);
   }
+
+  #download-page{
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding:10px 18px;font-size:16px;background:#22c55e;color:white;border:none;border-radius:8px;cursor:pointer;
+    z-index:1000;
+  }
 </style>
 </head>
 <body>
@@ -151,23 +159,7 @@
 <div class="coming">12 Oct Final Coming Soon..</div>
 <div class="countdown-box" id="countdown">Loading...</div>
 
-<!-- Full page download button top-right -->
-<button id="download-page" class="dl-btn" style="
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  z-index: 999;
-  padding: 10px 18px;
-  font-size: 16px;
-  background: #22c55e;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-">
-  ⬇️ Download Full Page
-</button>
+<button id="download-page">⬇️ Download Full Page</button>
 
 <div class="container">
   <!-- 9 Jamia Cards -->
@@ -287,6 +279,7 @@
     </div>
     <button class="card-download" title="Download Card">⬇️</button>
   </div>
+
 </div>
 
 <div class="footer">
@@ -329,52 +322,83 @@ function animateValue(el,start,end,duration){
   }
   window.requestAnimationFrame(step);
 }
+
 cards.forEach(card=>{
-  const hadaf=parseInt(card.dataset.hadaf);
-  const jama=parseInt(card.dataset.jama);
-  const baki=hadaf-jama;
-  animateValue(card.querySelector('.hadaf-value'),0,hadaf,1200);
-  animateValue(card.querySelector('.jama-value'),0,jama,1200);
-  animateValue(card.querySelector('.baki-value'),0,baki,1200);
-  card.querySelector('.progress-fill').style.width=`${Math.min(100,(jama/hadaf)*100)}%`;
+  let hadaf=parseFloat(card.getAttribute('data-hadaf'));
+  let jama=parseFloat(card.getAttribute('data-jama'));
+  let baki=hadaf-jama;
+  animateValue(card.querySelector('.hadaf-value'),0,hadaf,1000);
+  animateValue(card.querySelector('.jama-value'),0,jama,1000);
+  animateValue(card.querySelector('.baki-value'),0,baki,1000);
+  let percent=Math.min((jama/hadaf)*100,100);
+  setTimeout(()=>{card.querySelector('.progress-fill').style.width=percent+'%';},300);
 });
 
-// Rank badges
-let sorted = cards.map(c=>({el:c,value:parseInt(c.dataset.jama)})).sort((a,b)=>b.value-a.value);
-sorted.forEach((item,i)=>{
-  let rankEl=item.el.querySelector('.rank');
-  if(i==0) rankEl.innerHTML='<span class="rank-1">🥇 1st</span>';
-  else if(i==1) rankEl.innerHTML='<span class="rank-2">🥈 2nd</span>';
-  else if(i==2) rankEl.innerHTML='<span class="rank-3">🥉 3rd</span>';
-});
+// Rank & reorder cards dynamically
+function rankAndReorder(){
+  let container=document.querySelector('.container');
+  let sorted = Array.from(container.children).sort((a,b)=>parseInt(b.dataset.jama)-parseInt(a.dataset.jama));
+  sorted.forEach((card,i)=>{
+    let rankEl=card.querySelector('.rank');
+    if(i==0) rankEl.innerHTML='<span class="rank-1">🥇 1st</span>';
+    else if(i==1) rankEl.innerHTML='<span class="rank-2">🥈 2nd</span>';
+    else if(i==2) rankEl.innerHTML='<span class="rank-3">🥉 3rd</span>';
+    else rankEl.innerHTML='';
+    container.appendChild(card);
+  });
+}
+rankAndReorder();
 
-// Download full page
-document.getElementById('download-page').addEventListener('click',()=>{
-  html2canvas(document.body).then(canvas=>{
-    const imgData=canvas.toDataURL('image/png');
+// Full page PDF
+document.getElementById("download-page").addEventListener("click", () => {
+  const btn = document.getElementById("download-page");
+  btn.disabled = true;
+  btn.textContent = "Preparing PDF...";
+  html2canvas(document.body, { scale: 2, useCORS: true }).then(canvas => {
+    const imgData = canvas.toDataURL("image/png");
     const { jsPDF } = window.jspdf;
-    const pdf=new jsPDF('p','pt','a4');
-    const imgProps = pdf.getImageProperties(imgData);
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (imgProps.height * pdfWidth)/imgProps.width;
-    pdf.addImage(imgData,'PNG',0,0,pdfWidth,pdfHeight);
-    pdf.save('telethone2025_scoreboard.pdf');
+    const pdf = new jsPDF("p", "mm", "a4");
+    const imgWidth = 210;
+    const pageHeight = 297;
+    const imgHeight = canvas.height * imgWidth / canvas.width;
+    let heightLeft = imgHeight;
+    let position = 0;
+
+    pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+
+    while (heightLeft > -1) {
+      position = heightLeft - imgHeight;
+      pdf.addPage();
+      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+    }
+
+    pdf.save("Telethone-2025-Scoreboard.pdf");
+    btn.disabled = false;
+    btn.textContent = "⬇️ Download Full Page";
+  }).catch(err=>{
+    alert("Error creating PDF: " + err);
+    btn.disabled = false;
+    btn.textContent = "⬇️ Download Full Page";
   });
 });
 
-// Download individual card
-cards.forEach(card=>{
-  let btn=card.querySelector('.card-download');
-  btn.addEventListener('click',()=>{
-    html2canvas(card).then(canvas=>{
-      const imgData=canvas.toDataURL('image/png');
-      const { jsPDF } = window.jspdf;
-      const pdf=new jsPDF('p','pt','a4');
-      const imgProps = pdf.getImageProperties(imgData);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (imgProps.height * pdfWidth)/imgProps.width;
-      pdf.addImage(imgData,'PNG',0,0,pdfWidth,pdfHeight);
-      pdf.save(card.querySelector('h2').textContent+'.pdf');
+// Single card download
+document.querySelectorAll(".card-download").forEach((btn, idx) => {
+  btn.addEventListener("click", ()=>{
+    const card = cards[idx];
+    const originalStyle = card.style.boxShadow;
+    card.style.boxShadow = "0 18px 50px rgba(0,0,0,0.6)";
+    html2canvas(card, { scale: 3, backgroundColor: "#0E2148", useCORS: true }).then(canvas => {
+      const link = document.createElement("a");
+      link.download = `${card.querySelector("h2").textContent}.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+      card.style.boxShadow = originalStyle;
+    }).catch(err=>{
+      alert("Error creating image: " + err);
+      card.style.boxShadow = originalStyle;
     });
   });
 });
