@@ -63,7 +63,6 @@
 
   .container { display:flex; flex-direction:column; align-items:center; padding-bottom:40px; }
 
-  /* Card Style with subtle right corner fold */
   .card {
     margin: 15px auto;
     width: 460px;
@@ -89,22 +88,18 @@
   .card-content h2 { margin:0 0 8px 0; font-size: 20px; }
 
   .unit { margin-bottom: 6px; font-size: 16px; }
-  .unit.hadaf { color: #0ea5e9; font-weight: bold; }  /* Blue */
-  .unit.jama { color: #22c55e; font-weight: bold; }   /* Green */
-  .unit.baki { color: #facc15; font-weight: bold; }   /* Yellow */
+  .unit.hadaf { color: #0ea5e9; font-weight: bold; }
+  .unit.jama { color: #22c55e; font-weight: bold; }
+  .unit.baki { color: #facc15; font-weight: bold; }
 
   .progress-bar-container { margin-top: 6px; height: 15px; background: rgba(255,255,255,0.2); border-radius:10px; overflow:hidden; }
   .progress-fill { height:100%; width:0; border-radius:10px; background:linear-gradient(90deg,#3b82f6,#6366f1); transition: width 1.5s ease-in-out; }
 
-  .rank-1 { background:#facc15; color:black; padding:4px 8px; border-radius:6px; } 
-  .rank-2 { background:#facc15; color:black; padding:4px 8px; border-radius:6px; } 
-  .rank-3 { background:#facc15; color:black; padding:4px 8px; border-radius:6px; } 
-
+  .rank-1, .rank-2, .rank-3 { background:#facc15; color:black; padding:4px 8px; border-radius:6px; }
   .rank { margin-top:6px; font-size:16px; font-weight:bold; color:#ffffff; }
 
-  .footer { margin-top:25px; font-size:18px; font-weight:bold; color:gold; }
+  .footer { margin-top:25px; font-size:18px; font-weight:bold; color:gold; display:flex; align-items:center; justify-content:center; gap:10px; }
 
-  /* Right corner fold effect */
   .card::after {
     content: '';
     position: absolute;
@@ -116,6 +111,36 @@
     border-top-right-radius: 18px;
     clip-path: polygon(0 0, 100% 0, 100% 100%);
   }
+
+  @media (max-width:500px){
+    .card { width: 92%; flex-direction: column; align-items:center; text-align:center; }
+    .card img { margin: 0 0 10px 0; }
+    .card-content { text-align:center; }
+  }
+
+  .card-download {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  }
+  .card-download:hover {
+    background: #22c55e;
+    transform: scale(1.2);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+  }
 </style>
 </head>
 <body>
@@ -126,8 +151,26 @@
 <div class="coming">12 Oct Final Coming Soon..</div>
 <div class="countdown-box" id="countdown">Loading...</div>
 
+<!-- Full page download button top-right -->
+<button id="download-page" class="dl-btn" style="
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 999;
+  padding: 10px 18px;
+  font-size: 16px;
+  background: #22c55e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+">
+  ⬇️ Download Full Page
+</button>
+
 <div class="container">
-  <!-- 9 Horizontal Jamia Cards -->
+  <!-- 9 Jamia Cards -->
   <div class="card" data-hadaf="159" data-jama="35">
     <img src="./images/silchar.jpg" alt="Silchar">
     <div class="card-content">
@@ -138,6 +181,7 @@
       <div class="progress-bar-container"><div class="progress-fill"></div></div>
       <div class="rank"></div>
     </div>
+    <button class="card-download" title="Download Card">⬇️</button>
   </div>
 
   <div class="card" data-hadaf="110" data-jama="50">
@@ -150,6 +194,7 @@
       <div class="progress-bar-container"><div class="progress-fill"></div></div>
       <div class="rank"></div>
     </div>
+    <button class="card-download" title="Download Card">⬇️</button>
   </div>
 
   <div class="card" data-hadaf="155" data-jama="65">
@@ -162,6 +207,7 @@
       <div class="progress-bar-container"><div class="progress-fill"></div></div>
       <div class="rank"></div>
     </div>
+    <button class="card-download" title="Download Card">⬇️</button>
   </div>
 
   <div class="card" data-hadaf="124" data-jama="64">
@@ -174,6 +220,7 @@
       <div class="progress-bar-container"><div class="progress-fill"></div></div>
       <div class="rank"></div>
     </div>
+    <button class="card-download" title="Download Card">⬇️</button>
   </div>
 
   <div class="card" data-hadaf="116" data-jama="44">
@@ -186,6 +233,7 @@
       <div class="progress-bar-container"><div class="progress-fill"></div></div>
       <div class="rank"></div>
     </div>
+    <button class="card-download" title="Download Card">⬇️</button>
   </div>
 
   <div class="card" data-hadaf="104" data-jama="35">
@@ -198,6 +246,7 @@
       <div class="progress-bar-container"><div class="progress-fill"></div></div>
       <div class="rank"></div>
     </div>
+    <button class="card-download" title="Download Card">⬇️</button>
   </div>
 
   <div class="card" data-hadaf="149" data-jama="50">
@@ -210,6 +259,7 @@
       <div class="progress-bar-container"><div class="progress-fill"></div></div>
       <div class="rank"></div>
     </div>
+    <button class="card-download" title="Download Card">⬇️</button>
   </div>
 
   <div class="card" data-hadaf="176" data-jama="35">
@@ -222,6 +272,7 @@
       <div class="progress-bar-container"><div class="progress-fill"></div></div>
       <div class="rank"></div>
     </div>
+    <button class="card-download" title="Download Card">⬇️</button>
   </div>
 
   <div class="card" data-hadaf="248" data-jama="83">
@@ -234,15 +285,23 @@
       <div class="progress-bar-container"><div class="progress-fill"></div></div>
       <div class="rank"></div>
     </div>
+    <button class="card-download" title="Download Card">⬇️</button>
   </div>
 </div>
 
-<div class="footer">Designed & Developed by:- عبد مصطفی</div>
+<div class="footer">
+  <div>Designed & Developed by:- عبد مصطفی</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script>
+// Date
 const dateElement = document.getElementById("current-date");
 dateElement.textContent = new Date().toLocaleDateString("en-GB",{ weekday:"long", day:"numeric", month:"long", year:"numeric"});
 
+// Countdown
 const countdownEl = document.getElementById("countdown");
 const targetDate = new Date("October 12, 2025 00:00:00").getTime();
 setInterval(()=>{
@@ -256,6 +315,7 @@ setInterval(()=>{
   countdownEl.textContent=`${d}d : ${h}h : ${m}m : ${s}s`;
 },1000);
 
+// Animate values & progress
 let cards = Array.from(document.querySelectorAll('.card'));
 function animateValue(el,start,end,duration){
   let range=end-start,startTime=null;
@@ -269,34 +329,55 @@ function animateValue(el,start,end,duration){
   }
   window.requestAnimationFrame(step);
 }
-
-function updateRank(){
-  let sorted=cards.sort((a,b)=>parseFloat(b.getAttribute('data-jama'))-parseFloat(a.getAttribute('data-jama')));
-  let container=document.querySelector('.container');
-  container.innerHTML='';
-  sorted.forEach((card,index)=>{
-    let rankDiv=card.querySelector('.rank');
-    if(index===0) rankDiv.innerHTML='<span class="rank-1">🥇 Rank 1</span>';
-    else if(index===1) rankDiv.innerHTML='<span class="rank-2">🥈 Rank 2</span>';
-    else if(index===2) rankDiv.innerHTML='<span class="rank-3">🥉 Rank 3</span>';
-    else { rankDiv.style.color="#ffffff"; rankDiv.textContent=`Rank ${index+1}`; }
-    container.appendChild(card);
-  });
-}
-
 cards.forEach(card=>{
-  let hadaf=parseFloat(card.getAttribute('data-hadaf'));
-  let jama=parseFloat(card.getAttribute('data-jama'));
-  let baki=hadaf-jama;
-  animateValue(card.querySelector('.hadaf-value'),0,hadaf,1000);
-  animateValue(card.querySelector('.jama-value'),0,jama,1000);
-  animateValue(card.querySelector('.baki-value'),0,baki,1000);
-  let percent=Math.min((jama/hadaf)*100,100);
-  setTimeout(()=>{card.querySelector('.progress-fill').style.width=percent+'%';},300);
+  const hadaf=parseInt(card.dataset.hadaf);
+  const jama=parseInt(card.dataset.jama);
+  const baki=hadaf-jama;
+  animateValue(card.querySelector('.hadaf-value'),0,hadaf,1200);
+  animateValue(card.querySelector('.jama-value'),0,jama,1200);
+  animateValue(card.querySelector('.baki-value'),0,baki,1200);
+  card.querySelector('.progress-fill').style.width=`${Math.min(100,(jama/hadaf)*100)}%`;
 });
-updateRank();
+
+// Rank badges
+let sorted = cards.map(c=>({el:c,value:parseInt(c.dataset.jama)})).sort((a,b)=>b.value-a.value);
+sorted.forEach((item,i)=>{
+  let rankEl=item.el.querySelector('.rank');
+  if(i==0) rankEl.innerHTML='<span class="rank-1">🥇 1st</span>';
+  else if(i==1) rankEl.innerHTML='<span class="rank-2">🥈 2nd</span>';
+  else if(i==2) rankEl.innerHTML='<span class="rank-3">🥉 3rd</span>';
+});
+
+// Download full page
+document.getElementById('download-page').addEventListener('click',()=>{
+  html2canvas(document.body).then(canvas=>{
+    const imgData=canvas.toDataURL('image/png');
+    const { jsPDF } = window.jspdf;
+    const pdf=new jsPDF('p','pt','a4');
+    const imgProps = pdf.getImageProperties(imgData);
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (imgProps.height * pdfWidth)/imgProps.width;
+    pdf.addImage(imgData,'PNG',0,0,pdfWidth,pdfHeight);
+    pdf.save('telethone2025_scoreboard.pdf');
+  });
+});
+
+// Download individual card
+cards.forEach(card=>{
+  let btn=card.querySelector('.card-download');
+  btn.addEventListener('click',()=>{
+    html2canvas(card).then(canvas=>{
+      const imgData=canvas.toDataURL('image/png');
+      const { jsPDF } = window.jspdf;
+      const pdf=new jsPDF('p','pt','a4');
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (imgProps.height * pdfWidth)/imgProps.width;
+      pdf.addImage(imgData,'PNG',0,0,pdfWidth,pdfHeight);
+      pdf.save(card.querySelector('h2').textContent+'.pdf');
+    });
+  });
+});
 </script>
 </body>
 </html>
-
-
