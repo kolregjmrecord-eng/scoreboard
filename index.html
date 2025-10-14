@@ -4,7 +4,11 @@
 <meta charset="UTF-8">
 <title>Telethone 2025 Scoreboard</title>
 <style>
-@font-face {font-family: 'JameelNoori';src: url('JameelNooriBold.ttf') format('truetype');font-weight: bold;}
+@font-face {
+  font-family: 'JameelNoori';
+  src: url('JameelNooriBold.ttf') format('truetype');
+  font-weight: bold;
+}
 body {
   font-family: 'JameelNoori', serif;
   text-align: center;
@@ -28,13 +32,28 @@ body {
   font-size: 26px;
   font-weight: bold;
   margin-bottom: 10px;
-  color: #22c55e; 
+  color: #22c55e;
   text-shadow: 0 0 8px #16a34a;
 }
 .logo { margin: 10px auto; }
-.date { font-size: 20px; color: #000; margin-top: 5px; text-shadow: 0 0 6px #00e0ff; }
-.coming { font-size: 22px; font-weight: bold; color: #22c55e; margin-top: 5px; animation: blink 1.2s infinite; text-shadow: 0 0 8px #22c55e; }
-@keyframes blink { 0%,50%,100%{opacity:1;} 25%,75%{opacity:0;} }
+.date {
+  font-size: 20px;
+  color: #000;
+  margin-top: 5px;
+  text-shadow: 0 0 6px #00e0ff;
+}
+.coming {
+  font-size: 22px;
+  font-weight: bold;
+  color: #22c55e;
+  margin-top: 5px;
+  animation: blink 1.2s infinite;
+  text-shadow: 0 0 8px #22c55e;
+}
+@keyframes blink {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+}
 .countdown-box {
   margin: 10px auto 25px;
   display: inline-block;
@@ -48,13 +67,18 @@ body {
   box-shadow: 0 0 15px #facc15, 0 0 25px #fde047;
   backdrop-filter: blur(8px);
 }
-.container { display:flex; flex-direction:column; align-items:center; padding-bottom:50px; }
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 50px;
+}
 /* CARD STYLING */
 .card {
   margin: 18px auto;
   width: 480px;
   display: flex;
-  background: linear-gradient(145deg,#16a34a,#22c55e);
+  background: linear-gradient(145deg, #94919E, #b0afb7);
   border-radius: 22px;
   box-shadow: 0 12px 35px rgba(0,0,0,0.5);
   transition: transform 0.4s ease, box-shadow 0.4s ease;
@@ -63,29 +87,151 @@ body {
   overflow: hidden;
   color: #fff;
 }
-.card:hover { 
-  transform: translateY(-8px) scale(1.02); 
-  box-shadow: 0 0 25px #fde047,0 0 35px #fcd34d,0 12px 35px rgba(0,0,0,0.5);
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 0 25px #fde047, 0 0 35px #fcd34d, 0 12px 35px rgba(0,0,0,0.5);
 }
-.card img { width: 130px; height: 130px; object-fit: cover; border-radius: 14px; margin-right: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+.card img {
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin-right: 18px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
 .card-content { flex: 1; text-align: left; }
-.card-content h2 { margin:0 0 10px 0; font-size: 22px; color: #fff; text-shadow: 0 0 8px #fde047; font-weight:bold; }
-.unit { margin-bottom: 8px; font-size: 18px; font-weight: bold; color: #fff; text-shadow: 1px 1px 2px #000; }
-.progress-bar-container { margin-top: 8px; height: 22px; background: rgba(255,255,255,0.2); border-radius:12px; overflow:hidden; box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);}
-.progress-fill { height:100%; width:0; border-radius:12px; background: linear-gradient(90deg,#fde047,#facc15); transition: width 1.8s ease-in-out; box-shadow:0 0 8px rgba(255,255,255,0.5); position: relative; font-weight: bold; text-align: center; color:#fff; line-height:22px;}
-.progress-fill::after { content: attr(data-percent) "%"; position: absolute; width: 100%; text-align: center; color: #ffffff; font-weight: bold; font-size: 14px; }
-.rank-1, .rank-2, .rank-3 { padding:4px 10px; border-radius:10px; font-weight:bold; text-shadow:0 0 10px #fff; display:inline-block; margin-top:6px; }
-.rank-1 { background:#ffd700; color:#000; box-shadow:0 0 15px #ffd700;}
-.rank-2 { background:#c0c0c0; color:#000; box-shadow:0 0 15px #c0c0c0;}
-.rank-3 { background:#cd7f32; color:#000; box-shadow:0 0 15px #cd7f32;}
-.rank { margin-top:6px; font-size:16px; font-weight:bold; color:#fff; }
-.card-download { position: absolute; top: 8px; right: 8px; width: 36px; height: 36px; border-radius: 50%; border: none; background: rgba(255,255,255,0.2); color: #fff; font-size: 18px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 3px 8px rgba(0,0,0,0.5); }
-.card-download:hover { background: #fde047; transform: scale(1.3); box-shadow: 0 8px 20px #fde047; }
-#download-page{ position: fixed; top: 18px; right: 18px; padding:12px 20px;font-size:18px;background:#22c55e;color:white;border:none;border-radius:10px;cursor:pointer; z-index:1000; box-shadow:0 0 15px #22c55e,0 0 30px #0ff; transition: all 0.3s ease; }
-#download-page:hover { transform: scale(1.1); box-shadow:0 0 25px #22c55e,0 0 50px #0ff;}
-@media (max-width:520px){ .card { width: 95%; flex-direction: column; align-items:center; text-align:center; } .card img { margin: 0 0 10px 0; } .card-content { text-align:center; } }
-.footer { margin-top:30px; font-size:20px; font-weight:bold; background: linear-gradient(90deg,#3b82f6,#22c55e,#6366f1); -webkit-background-clip: text; color: transparent; text-shadow:0 0 10px rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center; gap:10px; }
-.card::after { content: ''; position: absolute; top: 0; right: 0; width: 50px; height: 50px; background: rgba(255,255,255,0.12); border-top-right-radius: 22px; clip-path: polygon(0 0, 100% 0, 100% 100%); }
+.card-content h2 {
+  margin: 0 0 10px 0;
+  font-size: 22px;
+  color: #fff;
+  text-shadow: 0 0 8px #fde047;
+  font-weight: bold;
+}
+.unit {
+  margin-bottom: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 1px 1px 2px #000;
+}
+.progress-bar-container {
+  margin-top: 8px;
+  height: 22px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
+}
+.progress-fill {
+  height: 100%;
+  width: 0;
+  border-radius: 12px;
+  background: linear-gradient(90deg,#fde047,#facc15);
+  transition: width 1.8s ease-in-out;
+  box-shadow: 0 0 8px rgba(255,255,255,0.5);
+  position: relative;
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+  line-height: 22px;
+}
+.progress-fill::after {
+  content: attr(data-percent) "%";
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 14px;
+}
+.rank-1, .rank-2, .rank-3 {
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-weight: bold;
+  text-shadow: 0 0 10px #fff;
+  display: inline-block;
+  margin-top: 6px;
+}
+.rank-1 { background: #ffd700; color: #000; box-shadow: 0 0 15px #ffd700; }
+.rank-2 { background: #c0c0c0; color: #000; box-shadow: 0 0 15px #c0c0c0; }
+.rank-3 { background: #cd7f32; color: #000; box-shadow: 0 0 15px #cd7f32; }
+.rank {
+  margin-top: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+}
+.card-download {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.5);
+}
+.card-download:hover {
+  background: #fde047;
+  transform: scale(1.3);
+  box-shadow: 0 8px 20px #fde047;
+}
+#download-page {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  padding: 12px 20px;
+  font-size: 18px;
+  background: #22c55e;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 0 15px #22c55e, 0 0 30px #0ff;
+  transition: all 0.3s ease;
+}
+#download-page:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px #22c55e, 0 0 50px #0ff;
+}
+@media (max-width:520px){
+  .card { width: 95%; flex-direction: column; align-items:center; text-align:center; }
+  .card img { margin: 0 0 10px 0; }
+  .card-content { text-align:center; }
+}
+.footer {
+  margin-top:30px;
+  font-size:20px;
+  font-weight:bold;
+  background: linear-gradient(90deg,#3b82f6,#22c55e,#6366f1);
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow:0 0 10px rgba(0,0,0,0.5);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50px;
+  height: 50px;
+  background: rgba(255,255,255,0.12);
+  border-top-right-radius: 22px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
 </style>
 </head>
 <body>
@@ -100,114 +246,24 @@ body {
 <button id="download-page">⬇️ Download Full Page</button>
 
 <div class="container">
-<!-- 9 Jamia cards -->
-<div class="card" data-hadaf="159" data-jama="60">
-  <img src="./images/silchar.jpg" alt="Silchar">
-  <div class="card-content"><h2>JAMIATUL MADINA SILCHAR</h2>
-    <div class="unit hadaf">🎯 Target Unit: <span class="hadaf-value"></span></div>
-    <div class="unit jama">✅ Collected Unit: <span class="jama-value"></span></div>
-    <div class="unit baki">⏳ Remaining Unit: <span class="baki-value"></span></div>
-    <div class="progress-bar-container"><div class="progress-fill"></div></div>
-    <div class="rank"></div>
-    <button class="card-download">⬇️</button>
-  </div>
-</div>
+<!-- Cards -->
+<div class="card" data-hadaf="159" data-jama="60"><img src="./images/silchar.jpg"><div class="card-content"><h2>JAMIATUL MADINA SILCHAR</h2><div class="unit hadaf">🎯 Target Unit: <span class="hadaf-value"></span></div><div class="unit jama">✅ Collected Unit: <span class="jama-value"></span></div><div class="unit baki">⏳ Remaining Unit: <span class="baki-value"></span></div><div class="progress-bar-container"><div class="progress-fill"></div></div><div class="rank"></div><button class="card-download">⬇️</button></div></div>
 
-<div class="card" data-hadaf="110" data-jama="75">
-  <img src="./images/asansole.jpg" alt="Asansole">
-  <div class="card-content"><h2>JAMIATUL MADINA ASANSOLE</h2>
-    <div class="unit hadaf">🎯 Target Unit: <span class="hadaf-value"></span></div>
-    <div class="unit jama">✅ Collected Unit: <span class="jama-value"></span></div>
-    <div class="unit baki">⏳ Remaining Unit: <span class="baki-value"></span></div>
-    <div class="progress-bar-container"><div class="progress-fill"></div></div>
-    <div class="rank"></div>
-    <button class="card-download">⬇️</button>
-  </div>
-</div>
+<div class="card" data-hadaf="110" data-jama="75"><img src="./images/asansole.jpg"><div class="card-content"><h2>JAMIATUL MADINA ASANSOLE</h2><div class="unit hadaf">🎯 Target Unit: <span class="hadaf-value"></span></div><div class="unit jama">✅ Collected Unit: <span class="jama-value"></span></div><div class="unit baki">⏳ Remaining Unit: <span class="baki-value"></span></div><div class="progress-bar-container"><div class="progress-fill"></div></div><div class="rank"></div><button class="card-download">⬇️</button></div></div>
 
-<div class="card" data-hadaf="155" data-jama="103">
-  <img src="./images/khidderpore.jpg" alt="Khidderpore">
-  <div class="card-content"><h2>JAMIATUL MADINA KHIDDERPORE</h2>
-    <div class="unit hadaf">🎯 Target Unit: <span class="hadaf-value"></span></div>
-    <div class="unit jama">✅ Collected Unit: <span class="jama-value"></span></div>
-    <div class="unit baki">⏳ Remaining Unit: <span class="baki-value"></span></div>
-    <div class="progress-bar-container"><div class="progress-fill"></div></div>
-    <div class="rank"></div>
-    <button class="card-download">⬇️</button>
-  </div>
-</div>
+<div class="card" data-hadaf="155" data-jama="103"><img src="./images/khidderpore.jpg"><div class="card-content"><h2>JAMIATUL MADINA KHIDDERPORE</h2><div class="unit hadaf">🎯 Target Unit: <span class="hadaf-value"></span></div><div class="unit jama">✅ Collected Unit: <span class="jama-value"></span></div><div class="unit baki">⏳ Remaining Unit: <span class="baki-value"></span></div><div class="progress-bar-container"><div class="progress-fill"></div></div><div class="rank"></div><button class="card-download">⬇️</button></div></div>
 
-<div class="card" data-hadaf="124" data-jama="93">
-  <img src="./images/matiaburuz.jpg" alt="Matiaburuz">
-  <div class="card-content"><h2>JAMIATUL MADINA MATIABURUZ</h2>
-    <div class="unit hadaf">🎯 Target Unit: <span class="hadaf-value"></span></div>
-    <div class="unit jama">✅ Collected Unit: <span class="jama-value"></span></div>
-    <div class="unit baki">⏳ Remaining Unit: <span class="baki-value"></span></div>
-    <div class="progress-bar-container"><div class="progress-fill"></div></div>
-    <div class="rank"></div>
-    <button class="card-download">⬇️</button>
-  </div>
-</div>
+<div class="card" data-hadaf="124" data-jama="93"><img src="./images/matiaburuz.jpg"><div class="card-content"><h2>JAMIATUL MADINA MATIABURUZ</h2><div class="unit hadaf">🎯 Target Unit: <span class="hadaf-value"></span></div><div class="unit jama">✅ Collected Unit: <span class="jama-value"></span></div><div class="unit baki">⏳ Remaining Unit: <span class="baki-value"></span></div><div class="progress-bar-container"><div class="progress-fill"></div></div><div class="rank"></div><button class="card-download">⬇️</button></div></div>
 
-<div class="card" data-hadaf="116" data-jama="72">
-  <img src="./images/soro.jpg" alt="Soro">
-  <div class="card-content"><h2>JAMIATUL MADINA SORO</h2>
-    <div class="unit hadaf">🎯 Target Unit: <span class="hadaf-value"></span></div>
-    <div class="unit jama">✅ Collected Unit: <span class="jama-value"></span></div>
-    <div class="unit baki">⏳ Remaining Unit: <span class="baki-value"></span></div>
-    <div class="progress-bar-container"><div class="progress-fill"></div></div>
-    <div class="rank"></div>
-    <button class="card-download">⬇️</button>
-  </div>
-</div>
+<div class="card" data-hadaf="116" data-jama="72"><img src="./images/soro.jpg"><div class="card-content"><h2>JAMIATUL MADINA SORO</h2><div class="unit hadaf">🎯 Target Unit: <span class="hadaf-value"></span></div><div class="unit jama">✅ Collected Unit: <span class="jama-value"></span></div><div class="unit baki">⏳ Remaining Unit: <span class="baki-value"></span></div><div class="progress-bar-container"><div class="progress-fill"></div></div><div class="rank"></div><button class="card-download">⬇️</button></div></div>
 
-<div class="card" data-hadaf="104" data-jama="70">
-  <img src="./images/bhadrak.jpg" alt="Bhadrak">
-  <div class="card-content"><h2>JAMIATUL MADINA BHADRAK</h2>
-    <div class="unit hadaf">🎯 Target Unit: <span class="hadaf-value"></span></div>
-    <div class="unit jama">✅ Collected Unit: <span class="jama-value"></span></div>
-    <div class="unit baki">⏳ Remaining Unit: <span class="baki-value"></span></div>
-    <div class="progress-bar-container"><div class="progress-fill"></div></div>
-    <div class="rank"></div>
-    <button class="card-download">⬇️</button>
-  </div>
-</div>
+<div class="card" data-hadaf="104" data-jama="70"><img src="./images/bhadrak.jpg"><div class="card-content"><h2>JAMIATUL MADINA BHADRAK</h2><div class="unit hadaf">🎯 Target Unit: <span class="hadaf-value"></span></div><div class="unit jama">✅ Collected Unit: <span class="jama-value"></span></div><div class="unit baki">⏳ Remaining Unit: <span class="baki-value"></span></div><div class="progress-bar-container"><div class="progress-fill"></div></div><div class="rank"></div><button class="card-download">⬇️</button></div></div>
 
-<div class="card" data-hadaf="149" data-jama="99">
-  <img src="./images/jamshedpur.jpg" alt="Jamshedpur">
-  <div class="card-content"><h2>JAMIATUL MADINA JAMSHEDPUR</h2>
-    <div class="unit hadaf">🎯 Target Unit: <span class="hadaf-value"></span></div>
-    <div class="unit jama">✅ Collected Unit: <span class="jama-value"></span></div>
-    <div class="unit baki">⏳ Remaining Unit: <span class="baki-value"></span></div>
-    <div class="progress-bar-container"><div class="progress-fill"></div></div>
-    <div class="rank"></div>
-    <button class="card-download">⬇️</button>
-  </div>
-</div>
+<div class="card" data-hadaf="149" data-jama="99"><img src="./images/jamshedpur.jpg"><div class="card-content"><h2>JAMIATUL MADINA JAMSHEDPUR</h2><div class="unit hadaf">🎯 Target Unit: <span class="hadaf-value"></span></div><div class="unit jama">✅ Collected Unit: <span class="jama-value"></span></div><div class="unit baki">⏳ Remaining Unit: <span class="baki-value"></span></div><div class="progress-bar-container"><div class="progress-fill"></div></div><div class="rank"></div><button class="card-download">⬇️</button></div></div>
 
-<div class="card" data-hadaf="176" data-jama="81">
-  <img src="./images/dhanbad.jpg" alt="Dhanbad">
-  <div class="card-content"><h2>JAMIATUL MADINA DHANBAD</h2>
-    <div class="unit hadaf">🎯 Target Unit: <span class="hadaf-value"></span></div>
-    <div class="unit jama">✅ Collected Unit: <span class="jama-value"></span></div>
-    <div class="unit baki">⏳ Remaining Unit: <span class="baki-value"></span></div>
-    <div class="progress-bar-container"><div class="progress-fill"></div></div>
-    <div class="rank"></div>
-    <button class="card-download">⬇️</button>
-  </div>
-</div>
+<div class="card" data-hadaf="176" data-jama="81"><img src="./images/dhanbad.jpg"><div class="card-content"><h2>JAMIATUL MADINA DHANBAD</h2><div class="unit hadaf">🎯 Target Unit: <span class="hadaf-value"></span></div><div class="unit jama">✅ Collected Unit: <span class="jama-value"></span></div><div class="unit baki">⏳ Remaining Unit: <span class="baki-value"></span></div><div class="progress-bar-container"><div class="progress-fill"></div></div><div class="rank"></div><button class="card-download">⬇️</button></div></div>
 
-<div class="card" data-hadaf="248" data-jama="135">
-  <img src="./images/ranchi.jpg" alt="Ranchi">
-  <div class="card-content"><h2>JAMIATUL MADINA RANCHI</h2>
-    <div class="unit hadaf">🎯 Target Unit: <span class="hadaf-value"></span></div>
-    <div class="unit jama">✅ Collected Unit: <span class="jama-value"></span></div>
-    <div class="unit baki">⏳ Remaining Unit: <span class="baki-value"></span></div>
-    <div class="progress-bar-container"><div class="progress-fill"></div></div>
-    <div class="rank"></div>
-    <button class="card-download">⬇️</button>
-  </div>
-</div>
+<div class="card" data-hadaf="248" data-jama="135"><img src="./images/ranchi.jpg"><div class="card-content"><h2>JAMIATUL MADINA RANCHI</h2><div class="unit hadaf">🎯 Target Unit: <span class="hadaf-value"></span></div><div class="unit jama">✅ Collected Unit: <span class="jama-value"></span></div><div class="unit baki">⏳ Remaining Unit: <span class="baki-value"></span></div><div class="progress-bar-container"><div class="progress-fill"></div></div><div class="rank"></div><button class="card-download">⬇️</button></div></div>
 
 </div>
 
@@ -216,23 +272,25 @@ body {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
-// Date
+// Current Date
 document.getElementById("current-date").textContent = new Date().toLocaleDateString("en-GB",{ weekday:"long", day:"numeric", month:"long", year:"numeric"});
-// Countdown
+
+// Countdown to 19 Oct
 const countdownEl = document.getElementById("countdown");
-const targetDate = new Date("October 12, 2025 00:00:00").getTime();
+const targetDate = new Date("October 19, 2025 00:00:00").getTime();
 setInterval(()=>{
   const now = new Date().getTime();
   const distance = targetDate - now;
-  if(distance<=0){ countdownEl.textContent="🎉 Final Started!"; return; }
+  if(distance <= 0){ countdownEl.textContent="🎉 Final Started!"; return; }
   const d = Math.floor(distance/(1000*60*60*24));
   const h = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
   const m = Math.floor((distance%(1000*60*60))/(1000*60));
   const s = Math.floor((distance%(1000*60))/1000);
   countdownEl.textContent=`${d}d : ${h}h : ${m}m : ${s}s`;
 },1000);
-// Animate values & progress
-let cards = Array.from(document.querySelectorAll('.card'));
+
+// Cards animation & auto-ranking
+let cards = Array.from(document.querySelectorAll(".card"));
 function animateValue(el,start,end,duration){
   let range=end-start,startTime=null;
   function step(timestamp){
@@ -240,55 +298,43 @@ function animateValue(el,start,end,duration){
     let progress=timestamp-startTime;
     let current=start+(range*(progress/duration));
     current=range>0?Math.min(current,end):Math.max(current,end);
-    el.textContent=current.toFixed(0);
+    el.textContent=Math.floor(current);
     if((range>0 && current<end)||(range<0 && current>end)) requestAnimationFrame(step);
   }
   requestAnimationFrame(step);
 }
-function updateProgress(){
+
+function updateCards(){
   cards.forEach(card=>{
-    let hadaf=parseInt(card.dataset.hadaf);
-    let jama=parseInt(card.dataset.jama);
-    let baki=hadaf-jama;
-    card.querySelector('.hadaf-value').textContent = hadaf;
-    animateValue(card.querySelector('.jama-value'),0,jama,2000);
-    card.querySelector('.baki-value').textContent = baki;
-    let percent=Math.min(100,Math.floor((jama/hadaf)*100));
-    let fill=card.querySelector('.progress-fill');
-    fill.style.width = percent + '%';
-    fill.setAttribute("data-percent",percent);
+    const hadaf = +card.dataset.hadaf;
+    const jama = +card.dataset.jama;
+    const baki = hadaf - jama;
+    animateValue(card.querySelector(".hadaf-value"), 0, hadaf, 1000);
+    animateValue(card.querySelector(".jama-value"), 0, jama, 1200);
+    animateValue(card.querySelector(".baki-value"), baki, baki, 1000);
+    const percent = Math.min(100, Math.round((jama/hadaf)*100));
+    const bar = card.querySelector(".progress-fill");
+    bar.style.width = percent + "%";
+    bar.setAttribute("data-percent", percent);
   });
-}
-function updateRank(){
-  cards.sort((a,b)=>parseInt(b.dataset.jama)-parseInt(a.dataset.jama));
-  let container=document.querySelector('.container');
-  container.innerHTML='';
-  cards.forEach((card,index)=>{
-    let rankEl=card.querySelector('.rank');
-    if(index===0) rankEl.innerHTML='<span class="rank-1">🏆 1</span>';
-    else if(index===1) rankEl.innerHTML='<span class="rank-2">🥈 2</span>';
-    else if(index===2) rankEl.innerHTML='<span class="rank-3">🥉 3</span>';
-    else rankEl.innerHTML='';
+  // Auto-ranking
+  cards.sort((a,b)=>b.dataset.jama - a.dataset.jama);
+  const container = document.querySelector(".container");
+  container.innerHTML = "";
+  cards.forEach((card,i)=>{
+    const rankEl = card.querySelector(".rank");
+    if(i===0) rankEl.innerHTML='<span class="rank-1">🏆 1</span>';
+    else if(i===1) rankEl.innerHTML='<span class="rank-2">🥈 2</span>';
+    else if(i===2) rankEl.innerHTML='<span class="rank-3">🥉 3</span>';
+    else rankEl.textContent = "";
     container.appendChild(card);
   });
 }
-updateProgress();
-updateRank();
-// Download
-document.getElementById("download-page").onclick = ()=>{
-  html2canvas(document.body).then(canvas=>{
-    const imgData = canvas.toDataURL('image/png');
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF('p','mm','a4');
-    const imgProps = pdf.getImageProperties(imgData);
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-    pdf.addImage(imgData,'PNG',0,0,pdfWidth,pdfHeight);
-    pdf.save('Telethone2025_Scoreboard.pdf');
-  });
-};
+updateCards();
+
+// Individual card download
 cards.forEach(card=>{
-  card.querySelector('.card-download').onclick = (e)=>{
+  card.querySelector(".card-download").onclick=(e)=>{
     e.stopPropagation();
     html2canvas(card).then(canvas=>{
       const imgData = canvas.toDataURL('image/png');
@@ -296,14 +342,26 @@ cards.forEach(card=>{
       const pdf = new jsPDF('p','mm','a4');
       const imgProps = pdf.getImageProperties(imgData);
       const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      const pdfHeight = (imgProps.height*pdfWidth)/imgProps.width;
       pdf.addImage(imgData,'PNG',0,0,pdfWidth,pdfHeight);
       pdf.save(card.querySelector('h2').textContent+'.pdf');
     });
   };
 });
+
+// Full page download
+document.getElementById("download-page").onclick=()=>{
+  html2canvas(document.body).then(canvas=>{
+    const imgData = canvas.toDataURL('image/png');
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p','mm','a4');
+    const imgProps = pdf.getImageProperties(imgData);
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (imgProps.height*pdfWidth)/imgProps.width;
+    pdf.addImage(imgData,'PNG',0,0,pdfWidth,pdfHeight);
+    pdf.save('Telethone2025_Scoreboard.pdf');
+  });
+};
 </script>
 </body>
 </html>
-
-
